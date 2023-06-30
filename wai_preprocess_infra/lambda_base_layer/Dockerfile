@@ -16,6 +16,8 @@ RUN source base/bin/activate
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt -t ./python
 
+# RUN rm -rf /python/{bin,include,lib64,pyvenv.cfg} /python/{__pycache__,easy_install.py,numpy*,pip*,pkg_resources,setuptools*}
+
 # Zip it up for deployment
 RUN zip -r layer.zip ./python/
 ENTRYPOINT [ "/bin/bash","-l" ]
