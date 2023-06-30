@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
 
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
@@ -18,6 +19,14 @@ export class WaiPreprocessInfraStack extends cdk.Stack {
         code: lambda.Code.fromAsset('../app/'),
         handler: 'wai_preprocess_api.handler',
         layers: [layer],
+      });
+
+      const waiPreprocessAPI = new apiGateway.RestApi(this, 'RestApi', {
+        restApiName: 'wai-preprocess-api',
+      });
+
+      waiPreprocessAPI.root.addProxy({
+          defaultIntegration: new apiGateway.LambdaIntegration(apiLambda),
       });
   }
 }

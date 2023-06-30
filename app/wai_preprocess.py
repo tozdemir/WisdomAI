@@ -8,15 +8,16 @@
 
 # Import libraries
 import pandas as pd
-import matplotlib.pyplot as plt
-import os
 import argparse
 import boto3
 from io import BytesIO
 import awswrangler as wr
 
 ID = 3
-session_upload = boto3.Session(profile_name='default')
+try:
+    session_upload = boto3.Session(profile_name='default')
+except Exception:
+    session_upload = boto3.Session()
 s3_upload = session_upload.client('s3')
 out_bucket = 'csv-s3-bucket-waipreprocess-output'
 in_bucket = 'csv-s3-bucket-waipreprocess'
