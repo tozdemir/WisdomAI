@@ -8,10 +8,10 @@ export class WaiPreprocessInfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      //const layer = new lambda.LayerVersion(this, "Baselayer", {
-      //  code: lambda.Code.fromAsset("lambda_base_layer/layer.zip"),
-      //  compatibleRuntimes: [lambda.Runtime.PYTHON_3_9],  
-      //});
+      const layer = new lambda.LayerVersion(this, "Baselayer", {
+        code: lambda.Code.fromAsset("lambda_base_layer/layer.zip"),
+        compatibleRuntimes: [lambda.Runtime.PYTHON_3_9],  
+      });
 
       const apiLambda = new lambda.Function(this, 'apiFunction',{
         runtime: lambda.Runtime.PYTHON_3_9,
